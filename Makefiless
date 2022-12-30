@@ -1,0 +1,23 @@
+ifeq ($(shell uname),Darwin)
+    LDFLAGS := -Wl,-dead_strip
+else
+    LDFLAGS := -Wl,--gc-sections -lpthread -ldl
+endif
+
+all: target/gdbm
+	target/gdbm
+
+target:
+	mkdir -p $@
+
+target/gdbm: target/main.o target/gdbm/libgdbm.a
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+target/debug/libgdbm.a: src/*.rs Cargo.toml
+	cargo build
+
+target/main.o: src/main.c | target
+	$(CC) -o $@ -c $<
+
+clean:
+	rm -rf target
