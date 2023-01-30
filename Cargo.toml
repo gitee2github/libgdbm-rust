@@ -1,0 +1,17 @@
+[package]
+name = "gdbm-for-rust"
+version = "0.1.0"
+authors = ["HUAWEI"]
+
+
+[lib]
+name = "gdbm_rust"
+crate-type = ["dylib"]
+path = "src/lib.rs"
+
+[dependencies]
+libc = "0.2"
+cc = "1.0" 
+dunce = "0.1.1"
+c2rust-bitfields = "0.3.0"
+c2rust-asm-casts = "0.2.0"
